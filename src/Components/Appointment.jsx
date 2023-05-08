@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 
 function Appointment() {
@@ -14,6 +14,8 @@ function Appointment() {
       setUsers(filteredUsers);
     }
     fetchUsers();
+
+
   }, []);
 
   return (
