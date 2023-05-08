@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 function ExampleForm() {
+  const { id } = useParams()
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
@@ -17,6 +18,10 @@ function ExampleForm() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <label>
+        Id: {id}
+      </label>
+      <br />
       <label>
         Name:
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} />

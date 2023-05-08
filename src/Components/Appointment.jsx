@@ -1,17 +1,17 @@
-import { faChampagneGlasses } from '@fortawesome/free-solid-svg-icons';
-import React, { Component,useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { createBrowserRouter, RouterProvider, Route, Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 
 function Appointment() {
   const [users, setUsers] = useState([]);
-
   useEffect(() => {
     async function fetchUsers() {
       const response = await fetch('http://localhost:5001/users');
       const data = await response.json();
-      setUsers(data);
+      const filteredUsers = data.filter(user => user.Role === 'Barber');
+
+      setUsers(filteredUsers);
     }
     fetchUsers();
   }, []);
