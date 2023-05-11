@@ -7,7 +7,7 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Route, Link} from "react-router-dom";
 // import {Appointment} from '../Pages/HomePage';
 
-class Asdf extends Component {
+class Maps extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -16,8 +16,10 @@ class Asdf extends Component {
         lng: 0
       },
       map: null,
-      barbers: []
+      barbers: [],
+      selectedBarber: null
     }
+    this.idRef = React.createRef()
     this.nameRef = React.createRef()
     this.locationRef = React.createRef()
     this.phoneRef = React.createRef()
@@ -55,31 +57,17 @@ containerStyle = {
     service.getDetails(request, (place, status) => {
       // eslint-disable-next-line no-undef
       if (status === google.maps.places.PlacesServiceStatus.OK){
-        // const nameEl = document.getElementById('name');
-        // const locationEl = document.getElementById('location');
-        // const phoneEl = document.getElementById('phone');
-        // const hoursEl = document.getElementById('hours');
-        // locationEl.innerText = `Location: ${ place.vicinity}`;
-        // // console.log(b.vicinity)
-        // phoneEl.innerText =  `Phone: ${place.formatted_phone_number || 'N/A'}`;
-        // hoursEl.innerText = `Hours: ${place.opening_hours.weekday_text.join("\n") || 'N/A'}`;
-             
         // Update the inner text of the DOM elements
+        this.idRef.current.innerText = place.place_id;
         this.nameRef.current.innerText = place.name;
         this.locationRef.current.innerText = place.vicinity;
         this.phoneRef.current.innerText = place.formatted_phone_number;
         this.hoursRef.current.innerText = place.opening_hours.weekday_text.join("\n");
       }
     });
-    
-    
-    
-    
+
     return null;
-    
   }
-  
-  
   
   addBarbersToState(barbers) {
     barbers = barbers.filter(b => {return b.business_status==="OPERATIONAL"})
@@ -87,6 +75,7 @@ containerStyle = {
     this.setState({barbers: [...this.state.barbers, ...barbers]})
   }
   
+
   onMapLoad(map) {
     // Get user's current location and update state
     navigator?.geolocation.getCurrentPosition((position) => {
@@ -130,6 +119,19 @@ containerStyle = {
     });
 
   }
+
+  selectBarber(barberId) {
+    if(!barberId){
+      return;
+    }
+
+    this.getBarberInformation(barberId)
+    console.log(barberId)
+    this.setState({
+      selectedBarber: barberId
+    })
+    console.log("dasdasds")
+  }
   
   render() {
     return (
@@ -158,7 +160,7 @@ containerStyle = {
                 />
 
                 {this.state.barbers.map(barber => (
-                  <Marker position={barber.geometry.location} title={barber.name} onClick={ ()=> this.getBarberInformation(barber.place_id)} ></Marker>
+                  <Marker position={barber.geometry.location} title={barber.name} onClick={ ()=> this.selectBarber(barber.place_id)} ></Marker>
                 ))}
               </GoogleMap>
             </Col>
@@ -167,16 +169,8 @@ containerStyle = {
               <p id='location' ref={this.locationRef}><FontAwesomeIcon icon={faLocationDot} /> </p>
               <p id='phone' ref={this.phoneRef}><FontAwesomeIcon icon={faPhone} /> </p>
               <p id='hours' ref={this.hoursRef}><FontAwesomeIcon icon={faClock}/></p>
-
-              <Link to="/appointment"><Button variant="outline-dark">Make an appointment</Button></Link>
-              {/* <Row>
-                <Col>
-                  <p>sdasd</p> 
-                </Col>
-                <Col>
-                  <p>sda</p>
-                </Col>
-              </Row> */}
+              <p ref={this.idRef}></p>
+                <Link to={`/appointment/${this.state.selectedBarber}`}><Button variant="outline-dark">Make an appointment</Button></Link>
             </Col>
           </Row>
         </Container>
@@ -189,4 +183,4 @@ containerStyle = {
   }
 }
 
-export default Asdf
+export default Maps
