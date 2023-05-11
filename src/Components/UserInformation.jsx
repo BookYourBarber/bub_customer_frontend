@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Col, Container, Row, Button } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 
 
-function ExampleForm() {
+function UserInformation() {
+  
   const { id } = useParams()
+
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
@@ -77,4 +79,4 @@ function ExampleForm() {
   );
 }
 
-export default ExampleForm;
+export default UserInformation;

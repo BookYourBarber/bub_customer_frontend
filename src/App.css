@@ -44,9 +44,10 @@
   color: white;
   font-size: larger;
   display: flex;
+  bottom: 0;
 }
 .footer p{
   margin: auto !important;
-  vertical-align: middle;
+  vertical-align: bottom;
   text-align: center;
 }
