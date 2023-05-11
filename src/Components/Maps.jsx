@@ -3,8 +3,7 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { Col, Container, Row, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faClock } from '@fortawesome/free-solid-svg-icons';
-import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider, Route, Link} from "react-router-dom";
+import { Link} from "react-router-dom";
 // import {Appointment} from '../Pages/HomePage';
 
 class Maps extends Component {
@@ -19,7 +18,6 @@ class Maps extends Component {
       barbers: [],
       selectedBarber: null
     }
-    this.idRef = React.createRef()
     this.nameRef = React.createRef()
     this.locationRef = React.createRef()
     this.phoneRef = React.createRef()
@@ -58,7 +56,6 @@ containerStyle = {
       // eslint-disable-next-line no-undef
       if (status === google.maps.places.PlacesServiceStatus.OK){
         // Update the inner text of the DOM elements
-        this.idRef.current.innerText = place.place_id;
         this.nameRef.current.innerText = place.name;
         this.locationRef.current.innerText = place.vicinity;
         this.phoneRef.current.innerText = place.formatted_phone_number;
@@ -158,7 +155,6 @@ containerStyle = {
                     url: `/imgs/home.png`
                   }}
                 />
-
                 {this.state.barbers.map(barber => (
                   <Marker position={barber.geometry.location} title={barber.name} onClick={ ()=> this.selectBarber(barber.place_id)} ></Marker>
                 ))}
@@ -169,8 +165,11 @@ containerStyle = {
               <p id='location' ref={this.locationRef}><FontAwesomeIcon icon={faLocationDot} /> </p>
               <p id='phone' ref={this.phoneRef}><FontAwesomeIcon icon={faPhone} /> </p>
               <p id='hours' ref={this.hoursRef}><FontAwesomeIcon icon={faClock}/></p>
-              <p ref={this.idRef}></p>
-                <Link to={`/appointment/${this.state.selectedBarber}`}><Button variant="outline-dark">Make an appointment</Button></Link>
+              {this.state.selectedBarber ?(
+                <Link to={`/appointment/${this.state.selectedBarber}`}>
+                  <Button variant="outline-dark">Make an appointment</Button>
+                  </Link>
+               ) : null} 
             </Col>
           </Row>
         </Container>

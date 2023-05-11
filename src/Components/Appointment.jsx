@@ -68,7 +68,7 @@ function Appointment() {
   return (
     <Row>
        <Col>
-       <Table striped bordered hover>
+     {/* </Col>  {/* <Table striped bordered hover>
        <thead>
       <tr>
         <th>Days</th>
@@ -76,9 +76,9 @@ function Appointment() {
           //iso format
           <>
             {/* {/ <td>{new Date(item.date).toLocaleDateString("en-US", {weekday: "long"})}</td> /} */}
-            <td>{item.day_id}<br></br>{moment(item.date).format('dddd')} <br></br> {moment(item.date).format('DD.MM.YYYY')}</td>
-            {setTimeslot([])}
-          </>
+            {/* <td>{item.day_id}<br></br>{moment(item.date).format('dddd')} <br></br> {moment(item.date).format('DD.MM.YYYY')}</td>
+            {setTimeslot([])} */}
+          {/* </>
         ))}
       </tr>
       </thead>
@@ -88,6 +88,46 @@ function Appointment() {
             <td></td>
           </tr>
         </tbody>
+    </Table> */} 
+    <Table striped bordered hover>
+      <tr>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wen</th>
+        <th>Thu</th>
+        <th>Fri</th>
+      </tr>
+      <tr>
+        <td></td>
+        <Link to={"/userinformation/1"}><td>9am-sads10am</td></Link>
+        <Link to={"/userinformation/1"}><td>9am-10am</td></Link>
+        <Link to={"/userinformation/1"}><td>9am-10am</td></Link>
+        <Link to={"/userinformation/1"}><td>9am-10am</td></Link>
+      </tr>
+      <tr>
+      <Link to={"/userinformation/1"}><td>10am-11am</td></Link>
+      <Link to={"/userinformation/1"}><td>10am-11am</td></Link>
+        <td></td>
+        <td></td>
+        <Link to={"/userinformation/1"}><td>10am-11am</td></Link>
+        <td></td>
+      </tr>
+      <tr>
+      <Link to={"/userinformation/1"}><td>11am-12pm</td></Link>
+        <td></td>
+        <Link to={"/userinformation/1"}><td>11am-12pm</td></Link>
+        <Link to={"/userinformation/1"}><td>11am-12pm</td></Link>
+        <td></td>
+        <Link to={"/userinformation/1"}><td>11am-12pm</td></Link>
+      </tr>
+      <tr>
+      <Link to={"/userinformation/1"}> <td>12pm-1pm</td></Link>
+      <Link to={"/userinformation/1"}> <td>12pm-1pm</td></Link>
+        <td></td>
+        <td></td>
+        <Link to={"/userinformation/1"}> <td>12pm-1pm</td></Link>
+        <Link to={"/userinformation/1"}> <td>12pm-1pm</td></Link>
+      </tr>
     </Table>
        </Col>
       <Col>
