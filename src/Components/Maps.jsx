@@ -4,6 +4,7 @@ import { Col, Container, Row, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faClock } from '@fortawesome/free-solid-svg-icons';
 import { Link} from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react';
 // import {Appointment} from '../Pages/HomePage';
 
 class Maps extends Component {
@@ -22,7 +23,9 @@ class Maps extends Component {
     this.locationRef = React.createRef()
     this.phoneRef = React.createRef()
     this.hoursRef = React.createRef()
+    
   }
+  
 // iconPin = {
 //     url: (`${process.env.PUBLIC_URL}/imgs/bluemappin.png`),
 //     fillColor: '#64be67',
@@ -128,6 +131,7 @@ containerStyle = {
       selectedBarber: barberId
     })
     console.log("dasdasds")
+    
   }
   
   render() {

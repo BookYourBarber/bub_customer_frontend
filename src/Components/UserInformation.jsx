@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Col, Row } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 
 function UserInformation() {
   
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const barberId = searchParams.get('barberId');
+  const timeslotId = searchParams.get('timeslotId');
+
+  console.log(barberId)
+  console.log(timeslotId)
+
   const { id } = useParams()
 
   const [name, setName] = useState('');
@@ -23,7 +33,7 @@ function UserInformation() {
     console.log(`Email: ${email}`);
     console.log(`Phone: ${phone}`);
   };
-  async function fetchUserById (){
+  async function fetchUserById (id){
     const response = await fetch(`http://localhost:5001/users/${id}`);
     const data = await response.json();
 
@@ -32,13 +42,35 @@ function UserInformation() {
     setBarberPhoneNr(data.PhoneNr)
     console.log(data)
   }
-  fetchUserById()
+  fetchUserById(barberId)
+
+  function postAppointment() {
+    const apiUrl = 'http://localhost:5003/appointments';
+  
+    const requestData = {
+      timeId: timeslotId,
+      custId: barberId,
+    };
+  
+    axios
+      .post(apiUrl, requestData)
+      .then((response) => {
+        console.log(response.data);
+        // Handle response data
+      })
+      .catch((error) => {
+        console.log(error.message);
+        // Handle error
+      });
+  }
+
+
 
   return (
     <Row>
       <Col>
         <label>
-          Id: {id}
+          Id: {barberId}
         </label>
         <br />
         <label>
@@ -72,7 +104,7 @@ function UserInformation() {
           <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
         </label>
         <br />
-        <Link to="/"><button type="submit">Submit</button></Link>
+        <button type="submit" onClick={postAppointment}>Submit</button>
       </form> 
       </Col>
     </Row>
