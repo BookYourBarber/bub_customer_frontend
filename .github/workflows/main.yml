@@ -1,0 +1,33 @@
+name: CI / CD
+
+on:
+  push:
+    branches:
+      - master
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+        
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Build React app
+        run: npm run build
+        
+      - name: Run tests
+        run: npm test
+        
+      - name: SonarCloud run
+        uses: sonarsource/sonarcloud-github-action@master
+        
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
