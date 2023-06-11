@@ -1,13 +1,11 @@
-import moment from 'moment'
-import Dropdown from 'react-bootstrap/Dropdown';
-import { Link, useParams} from "react-router-dom";
+import { Link} from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Button, Table } from 'react-bootstrap';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+import DropdownBarbers from './Dropdown';
+import Schedule from './Schedule';
 
 
 function Appointment() {
-  const {id} = useParams()
   const [users, setUsers] = useState([])
   const [schedule, setSchedule] = useState([])
   const [selectedTs, setTimeSlot] = useState([0])
@@ -84,29 +82,18 @@ function Appointment() {
     if(!days){
       return;
     }
-
-
-    // console.log(days)
-
-    // days.forEach(async day => {
-    //   day.timeslots = await fetchTimeSlots(day.id)
-    // });
     
     for (const day of days) {
       day.timeslots = await fetchTimeSlots(day.id);
     }
 
     return days
-
-    // const properSchedule = transformArray(days.map(d => d.timeslots))
   }
 
   function getFinishedSchedule(userId) {
     fetchSchedule(userId).then((schedule) => {
       const correctSchedule = transformArray(schedule.map(d => d.timeslots))
-      // console.log(schedule.map(d => d.timeslots))
-      // console.log(correctSchedule)
-      // return correctSchedule
+
       correctSchedule.unshift(schedule.map(d => d.date))
       console.log(correctSchedule)
       setSchedule(correctSchedule)
@@ -117,69 +104,44 @@ function Appointment() {
   function setSelectedTimeslot(value) {
     setTimeSlot(value)
     console.log(value)
-    // console.log(selectedTs)
   }
 
-  function getTitle(userId) {
-    const selectedUser = users.find((user) => user.Id === userId);
-    return selectedUser ? selectedUser.Name : 'Dropdown button';
-  }
+  // function getTitle(userId) {
+  //   const selectedUser = users.find((user) => user.Id === userId);
+  //   return selectedUser ? selectedUser.Name : 'Dropdown button';
+  // }
   return (
     <Row>
       <Col>
-        <Table striped bordered hover>
-          { schedule.map((day, index) => (
-            <tr>
-              { index  === 0 ? 
-                day.map(d => (
-                  <td>{moment(d).format('dddd')}</td>
-                ))
-                :
-                day.map((ts) => 
-                  ( ts !== undefined ? 
-                  <td onClick={() => setSelectedTimeslot(ts)} style={{cursor: 'pointer'}}>{ts.startDate} - {ts.endDate}</td>
-                  :
-                  <td>-</td>
-                  )
-                )
-              }
-            </tr>
-          ))}
-        </Table>
+      <Schedule
+        schedule={schedule}
+        selectedTs={selectedTs}
+        setSelectedTimeslot={setSelectedTimeslot}
+      />
       </Col>
       <Col>
+        <Table>
+          <tbody>
+            <tr>
+              <td><p>Your timeslot: <b>{selectedTs.startDate} - {selectedTs.endDate}</b></p></td>
+            </tr>
+            {/* <tr>
+              <td>{selectedTs.id}</td>
+            </tr> */}
+            {/* <tr>
+              <td></td>
+            </tr> */}
+          </tbody>
+        </Table>
+        <DropdownBarbers
+          users={users}
+          selectedUserId={selectedUserId}
+          setSelectedUserId={setSelectedUserId}
+          getFinishedSchedule={getFinishedSchedule}
+          setTimeSlot={setTimeSlot}
+          selectedTs={selectedTs}
+        />
 
-      <Table>
-        <tr>
-          Your timeslot:
-        </tr>
-        <tr>
-          <td>{selectedTs.id}</td>
-        </tr>
-        <tr>
-          <td>{selectedTs.startDate} - {selectedTs.endDate}</td>
-        </tr>
-      </Table>
-
-
-    <DropdownButton id="dropdown-basic-button" title={getTitle(selectedUserId)}>
-      {users.map((user) => (
-        <Dropdown.Item key={user.Id} onClick={() => { setSelectedUserId(user.Id); getFinishedSchedule(user.Id); setTimeSlot("")}}>{user.Name}</Dropdown.Item>
-      ))}
-    </DropdownButton>
-        {/* <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
-            Choose barber
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu>
-            // {users.map((user) => (
-              // <Link to={`/userinformation/${user.Id}`}>
-                <Dropdown.Item onClick={ () => { getFinishedSchedule(user.Id)}}>{user.Name}</Dropdown.Item>
-              // </Link>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown> */}
         <Link to={`/userinformation?barberId=${selectedUserId}&timeslotId=${selectedTs.id}`}>
           <Button variant="outline-dark">Choose the timeslot</Button>
         </Link>
