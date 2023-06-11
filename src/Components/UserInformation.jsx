@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Col, Row } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -48,8 +48,8 @@ function UserInformation() {
     const apiUrl = 'http://localhost:5003/appointments';
   
     const requestData = {
-      timeId: timeslotId,
-      custId: barberId,
+      timeslot_id: timeslotId,
+      customer_id: barberId,
     };
   
     axios

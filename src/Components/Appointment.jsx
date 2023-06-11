@@ -106,10 +106,6 @@ function Appointment() {
     console.log(value)
   }
 
-  // function getTitle(userId) {
-  //   const selectedUser = users.find((user) => user.Id === userId);
-  //   return selectedUser ? selectedUser.Name : 'Dropdown button';
-  // }
   return (
     <Row>
       <Col>
@@ -125,12 +121,6 @@ function Appointment() {
             <tr>
               <td><p>Your timeslot: <b>{selectedTs.startDate} - {selectedTs.endDate}</b></p></td>
             </tr>
-            {/* <tr>
-              <td>{selectedTs.id}</td>
-            </tr> */}
-            {/* <tr>
-              <td></td>
-            </tr> */}
           </tbody>
         </Table>
         <DropdownBarbers

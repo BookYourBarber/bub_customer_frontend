@@ -1,8 +1,5 @@
-import Dropdown from 'react-bootstrap/Dropdown';
-import { Link, useParams} from "react-router-dom";
-import React, { useState, useEffect } from 'react';
-import { Row, Col, Button, Table } from 'react-bootstrap';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+import React from 'react';
+import { Table } from 'react-bootstrap';
 import moment from 'moment'
 
 function Schedule({schedule, selectedts, setSelectedTimeslot}) {

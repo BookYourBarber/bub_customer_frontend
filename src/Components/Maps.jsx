@@ -4,8 +4,6 @@ import { Col, Container, Row, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faClock } from '@fortawesome/free-solid-svg-icons';
 import { Link} from "react-router-dom";
-import { useAuth0 } from '@auth0/auth0-react';
-// import {Appointment} from '../Pages/HomePage';
 
 class Maps extends Component {
   constructor(props) {
@@ -26,12 +24,6 @@ class Maps extends Component {
     
   }
   
-// iconPin = {
-//     url: (`${process.env.PUBLIC_URL}/imgs/bluemappin.png`),
-//     fillColor: '#64be67',
-//     fillOpacity: 100,
-//     scale: 1, //to reduce the size of icons
-//    };
 libraries = ["places"]
 
 containerStyle = {
@@ -45,9 +37,6 @@ containerStyle = {
   };
   
   getBarberInformation(id){
-    // let b = this.state.barbers.filter(b => {return b.place_id === id})[0]
-    // console.log(b);
-    
     // eslint-disable-next-line no-undef
     const service = new google.maps.places.PlacesService(this.state.map);
     const request = {
@@ -111,11 +100,6 @@ containerStyle = {
             pagination.nextPage()
         })
       })
-
-      
-
-      // Call the function to get nearby barber shops
-      // this.getNearbyBarberShops(latitude, longitude);
     });
 
   }
@@ -141,7 +125,6 @@ containerStyle = {
       libraries={this.libraries}
         >
         <Container>
-        {/* icon={`${process.env.PUBLIC_URL}/imgs/rainbow.png` }  */}
           <Row>
             <Col>  
               <GoogleMap
@@ -150,12 +133,9 @@ containerStyle = {
               zoom={14}
               onLoad={map => this.onMapLoad(map)}
               >
-                {/* icon={this.iconPin}  */}
                 <Marker
                   position={this.state.userLocation}
-                  // label="Home"
                   icon={{
-                    // url: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
                     url: `/imgs/home.png`
                   }}
                 />
@@ -177,10 +157,6 @@ containerStyle = {
             </Col>
           </Row>
         </Container>
-        
-        {/* <button onClick={()=> map.panTo(this.state.userLocation)}>
-          Pan to current location
-        </button> */}
       </LoadScript>
     )
   }
