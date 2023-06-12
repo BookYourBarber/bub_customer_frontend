@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { Col, Row } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -14,8 +13,6 @@ function UserInformation() {
 
   console.log(barberId)
   console.log(timeslotId)
-
-  const { id } = useParams()
 
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
