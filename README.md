@@ -1,17 +1,32 @@
-# Customer frontend
-
-##
-You probably already installed the required dependencies if you didn't please run it in the root directory `nmp install`.
-After you are done with dependencies you need to set your `Google API key` so you can use the application.
-You need to go to [Google Maps platform](https://developers.google.com/maps) and create your account if you already don't have it.
-After creating an account go to the APIs & Services than go to credentials and copy your `google maps API key` and set it in `.env` that you created earlier.
-You can see how it should look like in `.env.sample`.
+# Customer Frontend
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Getting Started
+
+Before running the application, make sure you have installed the required dependencies. If not, please run the following command in the root directory:
+
+```bash
+npm install
+```
+
+After installing the dependencies, you need to set your Google API key in order to use the application. Here are the steps:
+
+1. Go to [Google Maps Platform](https://developers.google.com/maps) and create an account if you don't already have one.
+2. Navigate to the APIs & Services section and then go to credentials.
+3. Copy your Google Maps API key.
+4. Create a file named `.env` in the root directory of the project.
+5. In the `.env` file, add the following line and replace `YOUR_API_KEY` with your actual API key:
+
+   ```plaintext
+   REACT_APP_API_KEY=YOUR_API_KEY
+   ```
+
+   You can refer to the provided `.env.sample` file for the format.
+
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, you can run the following scripts:
 
 ### `npm start`
 
@@ -23,4 +38,4 @@ You may also see any lint errors in the console.
 
 ### `npm run test`
 
-Launches the test runner in the interactive watch mode.
+Launches the test runner.
